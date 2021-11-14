@@ -5,11 +5,10 @@ const { DOMAIN, PORT } = require("./config");
 
 const server = http.createServer(function requestListener(req, res) {
   const host = req.headers.host || "";
-  if (host.startsWith(DOMAIN) || !host.includes(DOMAIN)) {
-    serveFrontend(req, res);
-  } else {
-    proxy(req, res).catch((err) => console.log(err));
-  }
+  const shouldProxy = host.includes(DOMAIN) && !host.startsWith(DOMAIN);
+
+  const handleRequest = shouldProxy ? proxy : serveFrontend;
+  handleRequest(req, res).catch((err) => console.log(err));
 });
 
 server.listen(PORT, () => {

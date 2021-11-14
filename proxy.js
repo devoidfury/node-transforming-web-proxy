@@ -1,6 +1,6 @@
-const request = require("./request");
+const request = require("./lib/request");
 const { DOMAIN, DEBUG } = require("./config");
-const transformUrl = require("./transformUrl");
+const transformUrl = require("./lib/transformUrl");
 
 const IGNORE_HEADER = () => {};
 const HEADER_TRANSFORMS = {
